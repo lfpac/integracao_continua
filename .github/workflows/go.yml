@@ -24,7 +24,7 @@ jobs:
     - name: Init database
       run: docker compose up -d postgres
 
-    - name: Lint
+    - name: lint
       run:  MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL="*" \
 	          docker run --rm -it \
   		        -v "$$(cygpath -m "$$PWD"):/app" \
