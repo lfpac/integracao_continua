@@ -25,12 +25,12 @@ jobs:
       run: docker compose up -d postgres
 
     - name: lint
-      run:  MSYS_NO_PATHCONV=1 MSYS2_ARG_CONV_EXCL="*" \
-	          docker run --rm -it \
-  		        -v "$$(cygpath -m "$$PWD"):/app" \
-  		        -w /app \
-  		        golangci/golangci-lint \
-  		        golangci-lint run controllers/ database/ models/ routes/
+	  run: |
+	    docker run --rm -t \
+	      -v "${GITHUB_WORKSPACE}:/app" \
+	      -w /app \
+	      golangci/golangci-lint \
+	      golangci-lint run controllers/ database/ models/ routes/
 
     - name: Test
       run: go test -v main_test.go
